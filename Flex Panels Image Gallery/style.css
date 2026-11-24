@@ -1,0 +1,93 @@
+html{
+    box-sizing: border-box;
+    background-color: rgb(0, 90, 112);
+    /* color:white; */
+    /* text-transform:uppercase; */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 200;
+}
+body{
+    margin: 0;
+}
+*,*:after,*::before{
+    box-sizing: inherit;
+}
+.panels{
+    min-height: 100vh;
+    box-sizing: inherit;
+    display: flex;
+}
+.panel{
+    background-color: rgb(0, 81, 173);
+    color: white;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    background-size: cover;
+    background-position: center;
+    flex: 1;
+    transition: 
+        font-size 0.7s cubic-bezier(0.6, -0.28, 0.735, -0.11),
+        flex 0.7s cubic-bezier(0.6, -0.28, 0.735, -0.11),
+        background 0.2s;
+}   
+/* выбор всех дочерних из panel */
+.panel>*{
+    margin: 0;
+    width: 100%;
+    transition: transform 0.5s;
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.panel>*:first-child{
+    transform: translateY(-100%);
+}
+.panel.open-active>*:first-child{
+    transform: translateY(0);
+}
+.panel>*:last-child{
+    transform: translateY(100%);
+}
+.panel.open-active>*:last-child{
+    transform: translateY(0);
+}
+.panel.open{
+    flex: 5;
+    font-size: 40px;
+}
+.panel p{
+    text-transform: uppercase;
+    font-family: "Amatic SC",cursive;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 
+    0 0 14px rgba(0, 0, 0, 0.45);
+    font-size: 1em;
+}
+.panel p:nth-child(2){
+    font-size: 3em;
+}
+.panel1{
+    background-image: url(1.jpg);
+}
+.panel2{
+    background-image: url(2.jpg);
+}
+.panel3{
+    background-image: url(3.jpg);
+}
+.panel4{
+    background-image: url(4.jpg);
+}
+.panel5{
+    background-image: url(5.jpg);
+}
+@media only screen and (max-width: 600px) {
+    .panel p {
+    font-size: 1em;
+    }
+}

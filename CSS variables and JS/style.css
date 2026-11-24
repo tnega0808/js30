@@ -1,0 +1,16 @@
+:root{
+    --color:blue;
+    --spacing:10px;
+    --blur:10px;
+}
+html{
+    background-color: aquamarine;
+}
+img{
+    padding:var(--spacing);
+    background-color: var(--color);
+    filter:blur(var(--blur))
+}
+.JS{
+    color: var(--color);
+}
