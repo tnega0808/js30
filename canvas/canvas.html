@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
     <title>Canvas</title>
 </head>
 
@@ -15,51 +14,66 @@
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        //strokeStyle задает цвет
         ctx.strokeStyle = "black";
         ctx.lineJoin = "round";
         ctx.lineCap = "round";
-        ctx.lineWidth=10;
+        ctx.lineWidth = 5;
+
+        // можно задать перекрытие, 
+        // т.е будет применена функия, высчитывающая на основе того что снизу и сверху, значение того, что останется
+        // ctx.globalCompositeOperation="luminosity";
 
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
-        let hue=0;
-        let width=5;
-        let checkWidth=false;
+        let hue = 0;
+        let direction = false;
 
         function draw(e) {
             if (!isDrawing) return
-            
+
             console.log(e);
-            ctx.strokeStyle=`hsl(${hue},80%,50%)`;
-            ctx.lineWidth=width;
+            ctx.strokeStyle = `hsl(${hue},100%,50%)`;
+            //начинает новый путь
             ctx.beginPath();
+            //переносит начало пути в точку lastX,lastY (которые задаются заново при нажатиии на мышьььь (кродется))
             ctx.moveTo(lastX, lastY);
+            // куда будет вестись линия (пока только координаты, не отрисовка)
             ctx.lineTo(e.offsetX, e.offsetY);
+            // именно отрисовка линии
             ctx.stroke();
+            //обновление последней точки(куда дошли)
             // [lastX, lastY] = [e.offsetX, e.offsetY];
             lastX = e.offsetX;
             lastY = e.offsetY;
-            if(width>=50){
-                checkWidth=true;
-            }else if (width===5){
-                checkWidth=false
+            // прикол с изменением ширины пера туда сюда
+            if (ctx.lineWidth >= 50 || ctx.lineWidth <= 5) {
+                direction = !direction;
             }
-            if(!checkWidth){
-                width++;
-            }else width--
-            hue+=3;
-            if (hue>=360){
-                hue=0;
+            if (direction) {
+                ctx.lineWidth++;
+            } else {
+                ctx.lineWidth--;
+            }
+            // прикол с изменением цвета пера
+            hue += 3;
+            if (hue >= 360) {
+                hue = 0;
             }
         }
 
-        canvas.addEventListener("mousedown", (e) =>{
+        // рисование только если мышь нажата 
+        canvas.addEventListener("mousedown", (e) => {
             isDrawing = true;
             [lastX, lastY] = [e.offsetX, e.offsetY];
+            //добавила от себя, чтобы можно было рисовать просто точки
+            draw(e);
 
         });
+        //двигаем мышь нажатую (иглистую) и получаем линию
         canvas.addEventListener("mousemove", draw);
+        //если мыш отпустили или вышли за край картины рисование прекращается
         canvas.addEventListener("mouseup", () => isDrawing = false);
         canvas.addEventListener("mouseout", () => isDrawing = false);
     </script>
