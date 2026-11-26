@@ -14,7 +14,7 @@ function findMatches(wordToMatch,cities){
         // но кажется, что оно перегружает очень текст и делает его менее читабельным
         //  return place.city.toLowerCase().includes(wordToMatch.toLowerCase())||place.state.toLowerCase().includes(wordToMatch.toLowerCase())});
         const regex=new RegExp(wordToMatch,"gi");
-        // .match выдает массив такой же длины в котором все null, кроме совпадений (судя по выводу ниже)
+        // .match выдает null если нет совпадений и массив с найденным значением если совпадение есть
         // console.log(place.city.match(regex));
         return place.city.match(regex)||place.state.match(regex)
     });
